@@ -1,0 +1,10 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
+<script>
+  const socket = io();
+
+  // Receive real-time message from server
+  socket.on("meal_notification", (data) => {
+    showNotification(data.message);
+  });
+</script>

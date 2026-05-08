@@ -1,0 +1,3 @@
+socketio.emit("meal_notification", {
+    "message": "Lunch is ready 🍛"
+})
