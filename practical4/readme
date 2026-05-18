@@ -1,0 +1,186 @@
+Practical 4: Connecting TikTok to PostgreSQL with Prisma ORM
+
+This project demonstrates how to migrate a TikTok clone backend from in-memory data storage to a fully persistent PostgreSQL database using Prisma ORM. It also implements authentication using JWT and password encryption with bcrypt, while upgrading all REST API endpoints to work with real database models.
+
+The goal of this practical is to understand database integration, schema design, authentication, and how modern ORMs simplify backend development by replacing raw SQL with structured and type-safe queries.
+
+Project Objectives
+Set up and configure a PostgreSQL database
+Integrate Prisma ORM with the backend
+Replace in-memory data with persistent database storage
+Implement secure authentication using JWT and bcrypt
+Update REST API endpoints to use Prisma instead of local models
+Seed database with test data for development
+Part 1: PostgreSQL Setup
+Create Database
+
+A PostgreSQL database is created for the application:
+
+Database name: tiktok_db
+User: tiktok_user
+Password-based authentication enabled
+
+This database will store all application data including users, videos, comments, likes, and follow relationships.
+
+Part 2: Prisma ORM Setup
+Install Dependencies
+npm install @prisma/client
+npm install prisma --save-dev
+Initialize Prisma
+npx prisma init
+
+This creates:
+
+prisma/schema.prisma (database schema)
+.env file (environment configuration)
+Configure Database Connection
+
+The .env file includes:
+
+PostgreSQL connection string
+Database credentials
+Schema configuration
+Install Authentication Libraries
+npm install bcrypt jsonwebtoken
+Part 3: Prisma Schema & Migration
+Define Database Schema
+
+The Prisma schema defines:
+
+Users
+Videos
+Comments
+Likes
+Follows
+
+It also defines relationships such as:
+
+One-to-many (User → Videos, Comments)
+Many-to-many (Likes, Follows)
+Run Migration
+npx prisma migrate dev --name init
+
+This command:
+
+Creates SQL migration files
+Applies schema to PostgreSQL
+Generates Prisma Client
+Prisma Client Setup
+
+A reusable Prisma instance is created in:
+
+src/lib/prisma.js
+
+This allows database access throughout the application.
+
+Part 4: Authentication System
+JWT Authentication
+
+Authentication is implemented using:
+
+bcrypt → password hashing
+jsonwebtoken → token generation
+middleware → route protection
+Auth Middleware
+
+The middleware:
+
+Verifies JWT tokens
+Protects private routes
+Attaches user data to requests
+Part 5: Updating Controllers with Prisma
+
+All controllers are updated to replace in-memory logic with database queries.
+
+User Controller
+User registration with hashed passwords
+Login with JWT token generation
+Fetch users from database
+Video Controller
+Create and retrieve videos
+Fetch related user data
+Handle likes and aggregations
+Support relational queries
+Comment Controller
+Create, update, delete comments
+Handle comment likes
+Link comments to users and videos
+Route Protection
+
+Protected routes now require valid JWT tokens before allowing:
+
+Video creation
+Likes
+Follow actions
+Comment operations
+Part 6: Environment Configuration
+
+The .env file includes:
+
+PORT=5000
+NODE_ENV=development
+
+DATABASE_URL="postgresql://tiktok_user:your_password@localhost:5432/tiktok_db?schema=public"
+
+JWT_SECRET=yourverylongandsecurerandomsecret
+JWT_EXPIRE=30d
+Part 7: Database Seeding
+Seed Script
+
+A seed script is created to populate the database with test data.
+
+It generates:
+
+10 users
+50 videos
+200 comments
+300 video likes
+150 comment likes
+40 follow relationships
+Run Seed Script
+npm run seed
+Part 8: Testing the System
+Start Server
+npm run dev
+Test Authentication
+
+Using Postman:
+
+Register new user
+Login user
+Copy JWT token
+Test Protected Routes
+
+Use token to access:
+
+Create video
+Like video
+Comment on video
+Follow users
+Key Concepts
+1. Database Schema Design
+Tables represent real-world entities
+Relationships define data connections
+Foreign keys ensure integrity
+Indexes improve performance
+2. ORM (Prisma)
+
+Prisma provides:
+
+Type-safe database queries
+Easy schema migrations
+Relationship handling
+Reduced SQL complexity
+3. Authentication
+
+Security is implemented using:
+
+Password hashing (bcrypt)
+JWT tokens
+Middleware-based route protection
+4. Prisma Features
+Schema-based modeling
+Automatic migrations
+Query builder abstraction
+Relationship-aware queries
+Transaction support

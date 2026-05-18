@@ -12,8 +12,7 @@
 
   // ⏰ Meal schedule (24-hour format)
   const mealTimes = [
-    { time: "07:30", message: "Breakfast is ready 🍳" },
-    { time: "7:30", message: "Morning Tea is ready ☕" },
+    { time: "07:30", message: "Breakfast and morning tea is ready 🍳" },
     { time: "12:00", message: "Lunch is ready 🍛" },
     { time: "16:00", message: "Evening Tea is ready ☕" },
     { time: "19:30", message: "Dinner is ready 🍽️" }
@@ -33,13 +32,8 @@
     });
   }, 60000); // check every 60 seconds
 
-
   // 🌟 SPECIAL MEAL (can be triggered anytime)
   function specialMeal(message) {
     showNotification("Special: " + message + " 🎉");
   }
-
-  // Example (test manually in console)
-  // specialMeal("Chicken tonight at 7 PM");
-
 </script>

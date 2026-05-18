@@ -1,0 +1,172 @@
+File Upload System – Express Backend Implementation
+
+This project demonstrates a complete file upload system using Node.js, Express, and Multer. It handles file uploads from a React/Next.js frontend, processes multipart form data on the backend, validates uploaded files, stores them securely on the server, and returns proper responses to the client.
+
+The goal of this system is to understand the full file upload workflow in modern web applications, including frontend-to-backend communication, file validation, error handling, and secure file storage.
+
+Project Overview
+
+The system is built to handle:
+
+File uploads from a frontend form or drag-and-drop UI
+Multipart form-data processing
+File type and size validation
+Secure storage of uploaded files on the server
+Proper error handling and response formatting
+Integration between React/Next.js frontend and Express backend
+Tech Stack
+Node.js – Runtime environment
+Express.js – Backend framework
+Multer – File upload handling middleware
+Cors – Cross-origin communication
+Morgan – HTTP request logging
+Dotenv – Environment variable management
+Implementation Flow
+
+1. Setup Express Server
+The backend is initialized using Express and configured to handle HTTP requests. Basic server setup includes middleware configuration and route handling.
+
+2. Configure Multer Middleware
+Multer is used to handle multipart/form-data and manage file uploads.
+It is configured with:
+Storage engine (destination + filename handling)
+File size limits
+File type validation
+
+3. Create Upload Endpoint
+A dedicated API route is created to handle file uploads.
+Accepts incoming files
+Validates file type and size
+Stores files in the uploads directory
+Returns success or error response
+
+4. Implement Validation & Security
+Security checks are added to ensure safe uploads:
+Allowed file types (e.g., images, PDFs)
+Maximum file size restrictions
+Proper error messages for invalid uploads
+Middleware-based error handling
+
+5. Connect Frontend to Backend
+The React/Next.js frontend is updated to send files directly to the Express backend using Axios.
+Uses FormData to send files
+Sends requests to http://localhost:8000/api/upload
+Tracks upload progress using Axios
+
+6. Test the System
+The full system is tested end-to-end:
+Start Express server
+Start Next.js frontend
+Upload files through UI
+Verify file storage in backend
+Confirm error handling works correctly
+Setup Instructions
+
+1. Initialize Project
+mkdir file-upload-server
+cd file-upload-server
+npm init -y
+2. Install Dependencies
+npm install express cors multer morgan dotenv
+3. Create Server File
+
+Create server.js and configure Express server with middleware:
+
+Express setup
+CORS configuration
+JSON handling
+Logging with Morgan
+4. Configure Multer
+
+Multer setup includes:
+
+Storage configuration (destination: /uploads)
+Custom filename generation
+File filtering (validation)
+Size limits
+5. Create Upload Route
+
+API endpoint:
+
+POST /api/upload
+Handles single or multiple file uploads
+Returns uploaded file metadata
+6. Add Error Handling Middleware
+
+Handles:
+
+Multer errors
+Invalid file types
+File size limit errors
+Generic server errors
+7. Configure Environment Variables
+
+Create .env file:
+
+PORT=8000
+NODE_ENV=development
+Frontend Integration (Next.js / React)
+
+1. Update Upload Request
+Frontend sends file using Axios:
+Uses FormData
+Sends request to Express backend
+Tracks upload progress
+
+2. Handle File Input (Dropzone)
+Supports drag-and-drop uploads
+Validates file type on client side
+Supports multiple file selection
+
+3. Display Upload Preview
+Frontend shows:
+File name
+Upload progress
+Success or error state
+Testing the System
+Run Backend
+node server.js
+Run Frontend
+npm run dev
+Test Steps
+Upload valid files
+Try invalid file types
+Try large files (to test limits)
+Check uploads folder on backend
+Verify API responses
+Key Concepts
+
+1. Multipart Form Data
+File uploads use multipart/form-data, which allows:
+Text fields + files in one request
+Binary data transfer
+Frontend uses FormData, backend parses it using Multer.
+
+2. Multer File Handling
+Multer manages:
+
+File parsing
+Storage location
+Filename formatting
+Metadata generation
+3. Validation & Security
+
+Important checks include:
+
+File type validation
+File size limits
+Safe storage paths
+Error prevention for invalid uploads
+4. CORS Configuration
+
+Since frontend and backend run on different ports:
+
+CORS middleware allows communication
+Controls allowed origins and methods
+5. Upload Progress Tracking
+
+Axios provides upload progress tracking using:
+
+onUploadProgress callback
+Useful for large file uploads
+Improves user experience

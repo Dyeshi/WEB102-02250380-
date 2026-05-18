@@ -1,0 +1,94 @@
+TikTok REST API – Backend Implementation
+
+This project is a RESTful API backend for a TikTok-like application. It is built using Node.js and Express, and it provides endpoints for managing videos, users, and comments. The API is designed to communicate with a Next.js frontend and follows standard REST principles using proper HTTP methods and status codes.
+
+The system currently uses in-memory data (no database yet), which makes it simple to understand core backend concepts such as routing, controllers, and request handling.
+
+Project Overview
+
+The API is structured around three main resources:
+
+Videos
+Users
+Comments
+
+Each resource supports standard CRUD operations (Create, Read, Update, Delete), along with additional social features like likes, follows, and nested relationships (e.g., user videos, video comments).
+
+API Endpoints Summary
+
+Videos
+GET /api/videos → Get all videos
+POST /api/videos → Create a new video
+GET /api/videos/:id → Get video by ID
+PUT /api/videos/:id → Update video
+DELETE /api/videos/:id → Delete video
+GET /api/videos/:id/comments → Get comments for a video
+GET /api/videos/:id/likes → Get likes
+POST /api/videos/:id/likes → Like a video
+DELETE /api/videos/:id/likes → Unlike a video
+
+Users
+GET /api/users → Get all users
+POST /api/users → Create user
+GET /api/users/:id → Get user by ID
+PUT /api/users/:id → Update user
+DELETE /api/users/:id → Delete user
+GET /api/users/:id/videos → Get user’s videos
+GET /api/users/:id/followers → Get followers
+POST /api/users/:id/followers → Follow user
+DELETE /api/users/:id/followers → Unfollow user
+GET /api/users/:id/following → Get following users
+
+Comments
+GET /api/comments → Get all comments
+POST /api/comments → Create comment
+GET /api/comments/:id → Get comment by ID
+PUT /api/comments/:id → Update comment
+DELETE /api/comments/:id → Delete comment
+GET /api/comments/:id/likes → Get comment likes
+POST /api/comments/:id/likes → Like comment
+DELETE /api/comments/:id/likes → Unlike comment
+Setup Instructions
+1. Initialize Project
+
+Create and move into your server directory:
+
+mkdir server
+cd server
+npm init -y
+2. Install Dependencies
+
+Install required packages:
+
+npm install express cors morgan body-parser dotenv
+npm install --save-dev nodemon
+3. Project Structure
+
+Create folder structure:
+
+mkdir -p src/controllers src/routes src/models src/middleware src/utils
+touch src/app.js src/server.js .env
+4. Environment Variables
+
+Create a .env file:
+
+PORT=3000
+NODE_ENV=development
+5. Run the Server
+
+Start development server:
+
+npm run dev
+Testing the API
+
+You can test endpoints using Postman or curl commands.
+
+This project demonstrates:
+
+RESTful API design
+Express routing and middleware usage
+Controller-based architecture
+Modular backend structure
+Basic social media backend logic
+
+Currently, the data is stored in memory, but it can be extended to use a real database like MongoDB or PostgreSQL in future improvements.
